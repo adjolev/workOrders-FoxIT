@@ -1,0 +1,150 @@
+﻿@model WorkOrders.Models.ViewModels.Customers_Filter;
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="text-center">
+    <h1>Customers</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary" >Create New <i class="fa-solid fa-plus"></i></a>
+</p>
+
+</div>
+
+
+<form asp-action="Index" method ="post">
+
+
+    <div class="row col-12">
+         <div class="form-group col-3">
+            <label asp-for="Name" class="control-label"></label>
+            <select   asp-for="Name" class="form-control" asp-items="Model.CustomersNames"   ></select>
+
+         </div>
+
+         <div class="form-group col-3">
+
+             <label asp-for="City" class="control-label"></label>
+             <select asp-for="City"  class = "form-control" asp-items="Model.CustomersCity">
+                <option value ="">Please select a City</option>
+            </select>
+           </div>
+
+            <div class ="form-group col-3">
+             
+             <label asp-for="Edb" class="control-label"></label>
+             <select asp-for="Edb"  class = "form-control" asp-items="Model.CustomersEdb">
+                <option value ="">Please select a City</option>
+            </select>
+            </div>
+
+
+          
+        
+
+    </div>
+    <div class="form-group col-3">
+        <button type="submit" class="btn btn-primary searchButton">Search <i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+</form>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Web
+            </th>
+            <th>
+                Edb
+            </th>
+            <th>
+                IsActive
+            </th>
+@*            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedOn)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Custumer) {
+            if(@item.IsActive == true)
+            {
+                
+            
+            <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Address
+            </td>
+            <td>
+                @item.City
+            </td>
+            <td>
+                @item.Phone
+            </td>
+            <td>
+                @item.Email
+            </td>
+            <td>
+                @item.Web
+            </td>
+            <td>
+                @item.Edb
+            </td>
+            <td>
+                @item.IsActive
+            </td>
+@*            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedOn)
+            </td>*@
+            <td>
+                 <div class="table-action-buttons">
+                <a asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a> 
+                <a asp-action="Details" asp-route-id="@item.CustomerId" class="btn btn-primary"><i class="fa-solid fa-info"></i></a> 
+                <a asp-action="Delete" asp-route-id="@item.CustomerId" class="btn btn-primary"><i class="fa-solid fa-trash-can"></i></a>
+                </div>
+            </td>
+        </tr>
+        }
+}   
+    </tbody>
+</table>

@@ -1,0 +1,180 @@
+﻿@model WorkOrders.Models.ViewModels.WorkOrder_Filter;
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="text-center">
+
+<h1>Work Orders</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary" >
+        Create New <i class="fa-solid fa-plus"></i>
+    </a>
+</p>
+</div>
+
+
+<form asp-action="Index" method="post" >
+
+    <div class="row col-12">
+            <div class="form-group col-3">
+                <label asp-for="CustomerId" class="control-label">Customer Name</label>
+                <input type="text" asp-for="CustomerId" class="form-control" list="customerList" />
+                <datalist id="customerList">
+                    @foreach(var item in Model.Customers)
+                {
+                    <option value=@item.Value>@item.Text</option>
+                }
+                </datalist>
+@*                <select asp-for="CustomerId" asp-items="Model.Customers" class = "form-control">
+                    <option value="">Please select Custumer</option>
+                </select>*@
+
+            </div>
+            <div class="form-group col-3">
+             <label asp-for="ProjectId" class="control-label">Project Name</label>
+             <select asp-for="ProjectId" asp-items="Model.Projects"  class = "form-control">
+                <option value ="">Please select a project</option>
+            </select>
+                
+
+            </div>
+            <div class="form-group col-3">
+                <label asp-for="UserId" class="control-label"> User</label>
+                <input type="text" asp-for="UserId" class="form-control" list="userList"/>
+                <datalist id="userList">
+                    @foreach(var item in Model.Users)
+                {
+                    <option value=@item.Value>@item.Text</option>
+                }
+                </datalist>
+
+            </div>
+@*            <div class="form-group col-3">
+                <label asp-for="CustomerNote" class="control-label">Customer Note</label>
+                <input asp-for="CustomerNote" class="form-control" />
+            </div>*@
+
+
+    </div>
+    
+    <div class="form-group col-3 searchButton">
+     <button type="submit" class="btn btn-primary" >Search <i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+
+</form>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th>
+                Customer Name
+            </th>
+            <th>
+               Project Name
+            </th>
+            <th>
+                User
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+               CustomerNote
+            </th>
+            <th>
+                PerformedWorks
+            </th>
+            <th>
+                Hours
+            </th>
+            <th>
+               Minutes
+            </th>
+@*            <th>
+                IsActive
+            </th>*@
+           @* <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedOn)
+            </th>
+
+            <th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.WorkOrders) {
+            if(@item.IsActive == true)
+            {
+                
+            
+            <tr>
+
+            <td>
+                @item.Customer.Name
+            </td>
+            <td>
+                @item.Project.Name
+            </td>
+            <td>
+                @item.UserId
+            </td>
+            <td>
+                @item.Date
+            </td>
+            <td>
+                @item.CustomerNote
+            </td>
+            <td>
+                @item.PerformedWorks
+            </td>
+            <td>
+                @item.Hours
+            </td>
+            <td>
+                @item.Minutes
+            </td>
+@*            <td>
+                @item.IsActive
+            </td>*@
+@*            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedOn)
+            </td>*@
+            <td>
+            <div class="table-action-buttons">
+
+                <a asp-action="Edit" asp-route-id="@item.WorkOrderId" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a> 
+                <a asp-action="Details" asp-route-id="@item.WorkOrderId" class="btn btn-primary"><i class="fa-solid fa-info"></i> </a> 
+                <a asp-action="Delete" asp-route-id="@item.WorkOrderId"  class="btn btn-primary"> <i class="fa-solid fa-trash-can"></i> </a>
+            
+            </div>
+            </td>
+                </tr>
+            }
+
+            
+
+        }
+    </tbody>
+</table>
